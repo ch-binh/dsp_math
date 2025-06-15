@@ -39,5 +39,5 @@ TEST(BASIC_OP, add)
 
   int result = advm_add(a, b);
 
-  TEST_ASSERT_EQUAL_INT(expected, result);
+  TEST_ASSERT_EQUAL_INT(8, result);
 }
