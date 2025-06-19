@@ -60,10 +60,10 @@ float32_t advm_mul(float32_t a, float32_t b)
 }
 float32_t advm_div(float32_t a, float32_t b)
 {
-  if (b == 0.0)
-  {
-    return POS_INF;
-  }
+  // if (b == 0.0)
+  // {
+  //   return POS_INF;
+  // }
   return a / b;
 }
 

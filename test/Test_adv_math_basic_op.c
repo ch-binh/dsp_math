@@ -9,10 +9,35 @@
  * @author  Binh Pham
  *******************************************************************************
  */
+/* Includes ----------------------------------------------------------------- */
+#include "Test_adv_math.h"
 
-#include "adv_math.h"
-#include "unity.h"
-#include "unity_fixture.h"
+/* Private defines ---------------------------------------------------------- */
+/* Private typedefs --------------------------------------------------------- */
+
+//* Test cases' inputs here =============================================== { */
+test_inputs_int_t cases_add_int[] = {
+  { TEST_GRP_TAG_POSITIVE, 40, 60, 101 },
+  { TEST_GRP_TAG_NEGATIVE, -40, -60, -102 },
+  { TEST_GRP_TAG_OPPOSITE_SIGNS, 80, -60, 20 },
+  { TEST_GRP_TAG_EDGES, 0, -42, -42 },
+};
+
+#define TEST_GRP_
+test_inputs_float_t cases_add_float[] = {
+  { "epsilon_vs_zero", FLT_EPSILON, 0.0f, FLT_EPSILON }, // test sai nếu bị rounded
+  { "min_add_min", FLT_MIN, FLT_MIN, 2.0f * FLT_MIN },   // dễ fail nếu mất precision
+  { "max_plus", FLT_MAX, 1e10f, INFINITY },              // overflow detection
+  { "inf_add", INFINITY, 1000.0f, INFINITY },            // propagate infinity
+  { "nan_add", NAN, 123.0f, NAN },                       // propagate nan
+  { "cancel_out", 1e20f, -1e20f, 0.0f },                 // catastrophic cancellation
+  { "near_one", 1.0f, FLT_EPSILON, 1.0f + FLT_EPSILON }, // detect ULP error
+  { "precision_loss", 1e-3f, 1e-7f, 0.0010001f },        // loss of significance
+  { "underflow", 1e-45f, -1e-45f, 0.0f },                // denormal test (1 bit diff)
+  { "associativity_fail", 1e30f, -1e30f + 1.0f, 1.0f },  // floating point associative broken
+};
+
+//* ======================================================================= } */
 
 /*
  * TEST CASES
@@ -31,119 +56,55 @@ TEST_TEAR_DOWN(BASIC_OP)
   // intentionally left empty
 }
 
-TEST(BASIC_OP, add_positive_int)
+/*
+ * ADDITION
+ * =============================================================================
+ */
+
+TEST(BASIC_OP, add_integers)
 {
-  TEST_ASSERT_EQUAL_INT(100, advm_add(40, 60));
+
+  for (size_t i = 0; i < ARRAY_SIZE(cases_add_int); ++i)
+  {
+    int  result = advm_add(cases_add_int[i].a, cases_add_int[i].b);
+    char msg[128];
+    snprintf(msg, sizeof(msg), "[%s][%zu] Failed: %d + %d != %d", cases_add_int[i].label, i,
+             cases_add_int[i].a, cases_add_int[i].b, cases_add_int[i].expected);
+    TEST_ASSERT_EQUAL_INT_MESSAGE(cases_add_int[i].expected, result, msg);
+  }
 }
 
-TEST(BASIC_OP, add_negative_int)
+TEST(BASIC_OP, add_float)
 {
-  TEST_ASSERT_EQUAL_INT(-100, advm_add(-40, -60));
+  for (size_t i = 0; i < ARRAY_SIZE(cases_add_float); ++i)
+  {
+    float result = advm_add(cases_add_float[i].a, cases_add_float[i].b);
+    char  msg[128];
+    snprintf(msg, sizeof(msg), "[%s][%zu] %.9g + %.9g = %.9g, expected %.9g", cases_add_float[i].label, i,
+             cases_add_float[i].a, cases_add_float[i].b, result, cases_add_float[i].expected);
+
+    if (isnan(cases_add_float[i].expected))
+      TEST_ASSERT_TRUE_MESSAGE(isnan(result), msg);
+    else if (isinf(cases_add_float[i].expected))
+      TEST_ASSERT_EQUAL_FLOAT_MESSAGE(cases_add_float[i].expected, result, msg);
+    else
+      TEST_ASSERT_FLOAT_WITHIN_MESSAGE(FLT_EPSILON, cases_add_float[i].expected, result, msg);
+  }
 }
 
-TEST(BASIC_OP, add_opposite_signs_int)
-{
-  TEST_ASSERT_EQUAL_INT(20, advm_add(80, -60));
-  TEST_ASSERT_EQUAL_INT(-20, advm_add(-80, 60));
-}
+/*
+ * SUBTRACTION
+ * =============================================================================
+ */
 
-TEST(BASIC_OP, add_zero_int)
-{
-  TEST_ASSERT_EQUAL_INT(42, advm_add(42, 0));
-  TEST_ASSERT_EQUAL_INT(-42, advm_add(0, -42));
-}
+/*
+ * MULTIPLICATION
+ * =============================================================================
+ */
 
-TEST(BASIC_OP, add_small_floats)
-{
-  TEST_ASSERT_FLOAT_WITHIN(FLT_EPSILON, 2.0f * FLT_MIN, advm_add(FLT_MIN, FLT_MIN));
-}
-
-TEST(BASIC_OP, add_large_floats)
-{
-  TEST_ASSERT_FLOAT_WITHIN(FLT_EPSILON, FLT_MAX, advm_add(FLT_MAX, 2323.0f));
-}
-
-TEST(BASIC_OP, add_infinity)
-{
-  TEST_ASSERT_EQUAL_FLOAT(INFINITY, advm_add(INFINITY, 1234123.0f));
-  TEST_ASSERT_EQUAL_FLOAT(-INFINITY, advm_add(-INFINITY, -11234234.0f));
-}
-
-TEST(BASIC_OP, add_nan)
-{
-  float nan = NAN;
-  TEST_ASSERT_TRUE(isnan(advm_add(nan, 1.0f)));
-  TEST_ASSERT_TRUE(isnan(advm_add(1.0f, nan)));
-}
-
-TEST(BASIC_OP, add_infinity_and_neg_infinity)
-{
-  TEST_ASSERT_TRUE(isnan(advm_add(INFINITY, -INFINITY)));
-}
-
-// 2. Mathematical Properties
-
-TEST(BASIC_OP, add_commutative)
-{
-  TEST_ASSERT_EQUAL_FLOAT(advm_add(3.5f, 7.2f), advm_add(7.2f, 3.5f));
-}
-
-TEST(BASIC_OP, add_identity)
-{
-  TEST_ASSERT_EQUAL_FLOAT(5.5f, advm_add(5.5f, 0.0f));
-}
-
-TEST(BASIC_OP, add_associative)
-{
-  float a = 1.1f, b = 2.2f, c = 3.3f;
-  float left  = advm_add(advm_add(a, b), c);
-  float right = advm_add(a, advm_add(b, c));
-  TEST_ASSERT_FLOAT_WITHIN(1e-6f, left, right);
-}
-
-TEST(BASIC_OP, add_inverse)
-{
-  float a = 123.456f;
-  TEST_ASSERT_FLOAT_WITHIN(1e-6f, 0.0f, advm_add(a, -a));
-}
-
-// 3. Accuracy & Rounding
-
-TEST(BASIC_OP, add_floating_point_precision)
-{
-  TEST_ASSERT_FLOAT_WITHIN(1e-6f, 0.3f, advm_add(0.1f, 0.2f));
-  TEST_ASSERT_FLOAT_WITHIN(1e-3f, 1e6f, advm_add(1e6f, 1e-3f));
-}
-
-// 4. Determinism
-
-TEST(BASIC_OP, add_determinism)
-{
-  float result1 = advm_add(123.45f, 67.89f);
-  float result2 = advm_add(123.45f, 67.89f);
-  TEST_ASSERT_EQUAL_FLOAT(result1, result2);
-}
-
-// 5. System/Hardware Errors
-
-TEST(BASIC_OP, add_overflow)
-{
-  float result = advm_add(FLT_MAX, 1e32f);
-  TEST_ASSERT_EQUAL_FLOAT(INFINITY, result);
-}
-
-TEST(BASIC_OP, add_underflow)
-{
-  float result = advm_add(FLT_MIN, -FLT_MIN);
-  TEST_ASSERT_FLOAT_WITHIN(1e-38f, 0.0f, result);
-}
-
-// 6. Code Coverage
-
-TEST(BASIC_OP, add_branch_coverage)
-{
-  TEST_ASSERT_EQUAL_INT(0, advm_add(0, 0));
-  TEST_ASSERT_EQUAL_FLOAT(0.0f, advm_add(0.0f, 0.0f));
-}
+/*
+ * DIVISION
+ * =============================================================================
+ */
 
 /* End of File -------------------------------------------------------------- */

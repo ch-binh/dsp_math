@@ -7,6 +7,10 @@
     "stdint.h": "c",
     "basetype.h": "c",
     "float.h": "c",
-    "corecrt.h": "c"
-  }
+    "corecrt.h": "c",
+    "test_adv_math.h": "c"
+  },
+  "cSpell.words": [
+    "advm"
+  ]
 }
