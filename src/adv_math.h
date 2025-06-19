@@ -19,13 +19,9 @@
 #define ADV_MATH_ALGORITHMS_H
 
 /* Function prototypes ------------------------------------------------------ */
-#include <stdint.h>
-#include <stdbool.h>
-#include <math.h>
+#include "basetype.h"
 
 /* Public defines ----------------------------------------------------------- */
-#define INF long long long
-
 /* Function prototypes ------------------------------------------------------ */
 
 /*
@@ -33,20 +29,27 @@
  * =============================================================================
  */
 
-int advm_add(int a, int b);
-int advm_sub(int a, int b);
-int advm_mul(int a, int b);
-int advm_div(int a, int b);
-int advm_mod(int a, int b);
+/**
+ * @brief
+ *
+ * @param a
+ * @param b
+ * @return float64_t
+ */
+float32_t advm_add(float32_t a, float32_t b);
+float32_t advm_sub(float32_t a, float32_t b);
+float32_t advm_mul(float32_t a, float32_t b);
+float32_t advm_div(float32_t a, float32_t b);
+int32_t   advm_mod(int32_t a, int32_t b);
 
 /*
  *  NUMBER THEORY
  * =============================================================================
  */
-int advm_gcd(int a, int b);
-int advm_lcm(int a, int b);
-bool advm_is_prime(int n);
-int advm_mod_pow(int base, int exp, int mod); // base^exp % mod
+int    advm_gcd(int a, int b);
+int    advm_lcm(int a, int b);
+bool_t advm_is_prime(int n);
+int    advm_mod_pow(int base, int exp, int mod); // base^exp % mod
 
 /*
  *  CALCULUS (NUMERICAL)
@@ -61,10 +64,9 @@ double advm_integrate(double (*f)(double), double a, double b,
  *  ALGEBRA / LINEAR ALGEBRA
  * =============================================================================
  */
-void advm_matrix_add(const float *A, const float *B, float *C, int rows,
-                     int cols);
-void advm_matrix_mul(const float *A, const float *B, float *C, int m, int n,
-                     int p); // A[m x n] * B[n x p] = C[m x p]
+void  advm_matrix_add(const float *A, const float *B, float *C, int rows, int cols);
+void  advm_matrix_mul(const float *A, const float *B, float *C, int m, int n,
+                      int p);                       // A[m x n] * B[n x p] = C[m x p]
 float advm_determinant(const float *matrix, int n); // square matrix only
 
 /*
@@ -78,7 +80,7 @@ int advm_knapsack_01(const int *w, const int *v, int n, int W);
  *  GRAPH THEORY (BASIC)
  * =============================================================================
  */
-void advm_dfs(int graph[][100], int n, int start, bool *visited);
+void advm_dfs(int graph[][100], int n, int start, bool_t *visited);
 void advm_bfs(int graph[][100], int n, int start);
 
 /*

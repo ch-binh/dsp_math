@@ -60,7 +60,11 @@ TARGET      := $(BUILD_DIR)/$(TARGET_BASE)$(TARGET_EXTENSION)
 INC_DIRS := -I$(SRC_DIR) -I$(UNITY_ROOT)/src -I$(UNITY_ROOT)/extras/fixture/src
 SYMBOLS  := -DUNITY_FIXTURE_NO_EXTRAS 
 SYMBOLS  += -D_CONFIG_UNIT_TEST 
-
+# for double ============================={
+#SYMBOLS  += -D__CONFIG_USE_DOUBLE__
+#SYMBOLS  += -DUNITY_INCLUDE_DOUBLE
+#SYMBOLS  += -DUNITY_DOUBLE_PRECISION
+#=========================================}
 ifeq ($(LOG),1)
 SYMBOLS += -D_CONFIG_UNIT_TEST_LOG
 endif

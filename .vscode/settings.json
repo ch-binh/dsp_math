@@ -3,6 +3,10 @@
     "unity.h": "c",
     "adv_math.h": "c",
     "math.h": "c",
-    "corecrt_math.h": "c"
+    "corecrt_math.h": "c",
+    "stdint.h": "c",
+    "basetype.h": "c",
+    "float.h": "c",
+    "corecrt.h": "c"
   }
 }

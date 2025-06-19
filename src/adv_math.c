@@ -21,27 +21,53 @@
  * =============================================================================
  */
 
-int advm_add(int a, int b)
+/**
+ * @brief addition
+ *
+ * @param a
+ * @param b
+ * @return float64_t
+ */
+float32_t advm_add(float32_t a, float32_t b)
 {
   return a + b;
 }
 
-int advm_sub(int a, int b)
+/**
+ * !! TODO: UPDATE THIS COMMENT
+ * @brief
+ *
+ * @param a
+ * @param b
+ * @return float64_t
+ */
+float32_t advm_sub(float32_t a, float32_t b)
 {
   return a - b;
 }
 
-int advm_mul(int a, int b)
+/**
+ * !! TODO: UPDATE THIS COMMENT
+ * @brief
+ *
+ * @param[in] a
+ * @param[in] b
+ * @return float64_t
+ */
+float32_t advm_mul(float32_t a, float32_t b)
 {
   return a * b;
 }
-
-int advm_div(int a, int b)
+float32_t advm_div(float32_t a, float32_t b)
 {
-  if (b == 0)
+  if (b == 0.0)
   {
-    // Handle division by zero, could return an error code or raise an exception
-    return 0; // Placeholder for error handling
+    return POS_INF;
   }
   return a / b;
+}
+
+int32_t advm_mod(int32_t a, int32_t b)
+{
+  return a % b;
 }
