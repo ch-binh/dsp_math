@@ -28,6 +28,8 @@
 // 2. Mathematical Properties
 
 /* Macros */
+#define TEST_CASE(label, a, b, expect) { label, a, b, expect }
+
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
 
 /* Public typedefs ---------------------------------------------------------- */

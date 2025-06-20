@@ -43,9 +43,9 @@
 #endif
 
 #if !defined(_CONFIG_UNIT_TEST)
-#define LOCAL_STATIC static
+#define _STATIC static
 #else
-#define LOCAL_STATIC
+#define _STATIC
 #endif
 
 #if !defined(__CONFIG_USE_INT64__)
