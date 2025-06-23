@@ -25,6 +25,7 @@
 
 #include "advm_basic_op.h"
 #include "advm_num_theo.h"
+#include "adv_math_application.h"
 
 /* Public defines ----------------------------------------------------------- */
 /* Public macros ------------------------------------------------------------ */
@@ -49,6 +50,7 @@
 #endif // __USE_FULL_ASSERTION
 
 /* Helper macros ------------------------------------------------------------ */
+#define SIGN(x)      ((x < 0) ? BS_NEG : BS_POS) ///< Sign of a number
 #define IS_EVEN(num) (!((num) & 1))           ///< Check if input is an even number, return Boolean True/False
 #define IS_ODD(num)  ((num) & 1)              ///< Check if input is an odd number, return Boolean True/False
 #define ABS(x)       (((x) < 0) ? -(x) : (x)) ///< Absolute
@@ -73,6 +75,8 @@
 /* Public typedefs ---------------------------------------------------------- */
 typedef int32_t (*op_func_int_t)(int32_t a, int32_t b);
 typedef float32_t (*op_func_float_t)(float32_t a, float32_t b);
+
+typedef int32_t (*op_func_pair_transform_int_t)(int32_t *a, int32_t *b);
 
 /* Function prototypes ------------------------------------------------------ */
 

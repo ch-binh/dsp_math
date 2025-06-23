@@ -54,10 +54,23 @@ typedef struct
   float_t         delta;
 } test_comp_float_t;
 
+typedef struct
+{
+  const char                  *label;
+  op_func_pair_transform_int_t func;
+  int32_t                      a;
+  int32_t                      b;
+  int32_t                      expected_a;
+  int32_t                      expected_b;
+  int32_t                      delta;
+} test_pair_transform_case_int_t;
+
 /* Function prototypes ------------------------------------------------------ */
 
 void test_helper_int(test_comp_int_t *test_case, uint32_t num_tests);
 void test_helper_float(test_comp_float_t *test_case, uint32_t num_tests);
+
+void test_helper_pair_transform_int(test_pair_transform_case_int_t *test_case, uint32_t num_tests);
 
 #endif /* TEST_ADV_MATH_H */
 

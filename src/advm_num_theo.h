@@ -24,6 +24,11 @@
 /* Public defines ----------------------------------------------------------- */
 #define GCD_NO_AVAILABLE 0 ///< inputs have 0
 
+/// default GCD Algorithm
+#if !defined(DEF_GCD_ALGORITHM)
+#define DEF_GCD_ALGORITHM (GCD_ALGO_ITER_EUCLID)
+#endif
+
 /* Public variables --------------------------------------------------------- */
 typedef enum
 {

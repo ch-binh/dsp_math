@@ -53,7 +53,7 @@
  * @param[in] algorithm Algorithm to use for GCD computation (see advm_gcd_algo_t).
  *
  * @retval    int32_t   The greatest common divisor of a and b.
- * @retval    GCD_NO_AVAILABLE (0) if either input a or b is zero.
+ * @retval    GCD_NO_AVAILABLE (0) if either input a or b is zero/int32_min.
  */
 int32_t advm_gcd(int32_t a, int32_t b, advm_gcd_algo_t algorithm)
 {

@@ -13,3 +13,8 @@ TEST_GROUP_RUNNER(ADVM_NUM_THEO)
 {
   RUN_TEST_CASE(ADVM_NUM_THEO, gcd);
 }
+
+TEST_GROUP_RUNNER(ADVM_APP)
+{
+  RUN_TEST_CASE(ADVM_APP, simplify_fraction_non_zeros_positives);
+}

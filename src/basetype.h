@@ -71,6 +71,12 @@ typedef enum
   BS_TRUE  = 0x01
 } bool_t;
 
+typedef enum
+{
+  BS_NEG = -0x01, ///< Positive
+  BS_POS = 0x01,  ///< Negative
+} sign_t;
+
 typedef float float32_t;
 
 // not that double is very uncommon in embedded systems, so we use float by default
