@@ -60,6 +60,9 @@ TARGET      := $(BUILD_DIR)/$(TARGET_BASE)$(TARGET_EXTENSION)
 INC_DIRS := -I$(SRC_DIR) -I$(UNITY_ROOT)/src -I$(UNITY_ROOT)/extras/fixture/src
 SYMBOLS  := -DUNITY_FIXTURE_NO_EXTRAS 
 SYMBOLS  += -D_CONFIG_UNIT_TEST 
+# for assertion ============================={
+SYMBOLS  += -D__USE_FULL_ASSERTION
+# for assertion =============================}
 # for double ============================={
 #SYMBOLS  += -D__CONFIG_USE_DOUBLE__
 #SYMBOLS  += -DUNITY_INCLUDE_DOUBLE

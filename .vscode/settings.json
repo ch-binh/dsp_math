@@ -8,10 +8,16 @@
     "basetype.h": "c",
     "float.h": "c",
     "corecrt.h": "c",
-    "test_adv_math.h": "c"
+    "test_adv_math.h": "c",
+    "advm_num_theo.h": "c",
+    "advm_basic_op.h": "c",
+    "cmath": "c",
+    "cstdlib": "c",
+    "type_traits": "c"
   },
   "cSpell.words": [
     "advm"
   ],
-  "C_Cpp.default.compilerPath": "C:/msys64/mingw64/bin/gcc.exe"
+  "C_Cpp.default.compilerPath": "C:/msys64/mingw64/bin/gcc.exe",
+  "cmake.ignoreCMakeListsMissing": true
 }

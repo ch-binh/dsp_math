@@ -10,6 +10,24 @@
         "isDefault": true
       },
       "problemMatcher": []
+    },
+    {
+      "label": "build project",
+      "type": "shell",
+      "command": "make all",
+      "options": {
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": [
+            "-c"
+          ]
+        }
+      },
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
     }
   ]
 }

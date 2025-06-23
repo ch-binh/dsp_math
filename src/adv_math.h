@@ -18,38 +18,63 @@
 #ifndef ADV_MATH_ALGORITHMS_H
 #define ADV_MATH_ALGORITHMS_H
 
-/* Function prototypes ------------------------------------------------------ */
+/* Includes ----------------------------------------------------------------- */
+#include <stdio.h>
+#include <string.h>
 #include "basetype.h"
 
+#include "advm_basic_op.h"
+#include "advm_num_theo.h"
+
 /* Public defines ----------------------------------------------------------- */
-/* Function prototypes ------------------------------------------------------ */
+/* Public macros ------------------------------------------------------------ */
 
-/*
- *  BASIC ARITHMETIC
- * =============================================================================
- */
+// Logging
+#if !defined(__USE_LOG)
+#define LOG(msg, ...) ((void)0)
+#else
+#define LOG(msg, ...) printf("[%s] " msg "\n", TAG, ##__VA_ARGS__)
+#endif // __USE_LOG
 
+// Assertion
+#if !defined(__USE_FULL_ASSERTION)
+#define ADVM_CHECK(cond, ret) ((void)0)
+#else
+#define ADVM_CHECK(cond, ret)           \
+  if (!(cond))                          \
+  {                                     \
+    LOG("Condition failed: %s", #cond); \
+    return ret;                         \
+  }
+#endif // __USE_FULL_ASSERTION
+
+/* Helper macros ------------------------------------------------------------ */
+#define IS_EVEN(num) (!((num) & 1))           ///< Check if input is an even number, return Boolean True/False
+#define IS_ODD(num)  ((num) & 1)              ///< Check if input is an odd number, return Boolean True/False
+#define ABS(x)       (((x) < 0) ? -(x) : (x)) ///< Absolute
 /**
- * @brief
+ * @brief Swap 2 intergers using XOR algorithm
  *
- * @param a
- * @param b
- * @return float64_t
+ * @warning Do not use this for floating numbers, use @ref SWAP_FLOAT instead
+ *
  */
-float32_t advm_add(float32_t a, float32_t b);
-float32_t advm_sub(float32_t a, float32_t b);
-float32_t advm_mul(float32_t a, float32_t b);
-float32_t advm_div(float32_t a, float32_t b);
-int32_t   advm_mod(int32_t a, int32_t b);
+#define SWAP_XOR(a, b) \
+  a ^= b;              \
+  b ^= a;              \
+  a ^= b;
 
-/*
- *  NUMBER THEORY
- * =============================================================================
- */
-int    advm_gcd(int a, int b);
-int    advm_lcm(int a, int b);
-bool_t advm_is_prime(int n);
-int    advm_mod_pow(int base, int exp, int mod); // base^exp % mod
+#define SWAP_INT(a, b) SWAP_XOR(a, b)
+
+#define SWAP_FLOAT(a, b) \
+  float32_t temp = a;    \
+  a              = b;    \
+  b              = temp;
+
+/* Public typedefs ---------------------------------------------------------- */
+typedef int32_t (*op_func_int_t)(int32_t a, int32_t b);
+typedef float32_t (*op_func_float_t)(float32_t a, float32_t b);
+
+/* Function prototypes ------------------------------------------------------ */
 
 /*
  *  CALCULUS (NUMERICAL)
@@ -110,3 +135,5 @@ int advm_linear_search(const int arr[], int n, int target);
 int advm_binary_search(const int arr[], int l, int r, int target);
 
 #endif /* ADV_MATH_ALGORITHMS_H */
+
+/* End of File -------------------------------------------------------------- */
