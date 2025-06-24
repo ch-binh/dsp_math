@@ -15,74 +15,37 @@
  */
 
 /* Prevent includes recursive ----------------------------------------------- */
-#ifndef ADV_MATH_ALGORITHMS_H
-#define ADV_MATH_ALGORITHMS_H
+#ifndef ADV_MATH_H
+#define ADV_MATH_H
 
 /* Includes ----------------------------------------------------------------- */
-#include <stdio.h>
-#include <string.h>
-#include "basetype.h"
 
-#include "basic_operation/advm_basic_op.h"
+#include "advm_basic_op.h"
 
-#include "number_theory/advm_gcd_lcm.h"
-#include "number_theory/advm_modular.h"
-#include "number_theory/advm_prime.h"
+#include "advm_gcd_lcm.h"
+#include "advm_modular.h"
+#include "advm_prime.h"
 
 #include "adv_math_application.h"
+#include "advm_func_register.h"
 
 /* Public defines ----------------------------------------------------------- */
 /* Public macros ------------------------------------------------------------ */
 
-// Logging
-#if !defined(__USE_LOG)
-#define LOG(msg, ...) ((void)0)
-#else
-#define LOG(msg, ...) printf("[%s] " msg "\n", TAG, ##__VA_ARGS__)
-#endif // __USE_LOG
-
-// Assertion
-#if !defined(__USE_FULL_ASSERTION)
-#define ADVM_CHECK(cond, ret) ((void)0)
-#else
-#define ADVM_CHECK(cond, ret)           \
-  if (!(cond))                          \
-  {                                     \
-    LOG("Condition failed: %s", #cond); \
-    return ret;                         \
-  }
-#endif // __USE_FULL_ASSERTION
+typedef struct
+{
+  const advm_table_entry_t *table;
+  const int32_t             size;
+} advm_table_group_t;
 
 /* Helper macros ------------------------------------------------------------ */
-#define SIGN(x)      ((x < 0) ? BS_NEG : BS_POS) ///< Sign of a number
-#define IS_EVEN(num) (!((num) & 1))           ///< Check if input is an even number, return Boolean True/False
-#define IS_ODD(num)  ((num) & 1)              ///< Check if input is an odd number, return Boolean True/False
-#define ABS(x)       (((x) < 0) ? -(x) : (x)) ///< Absolute
-/**
- * @brief Swap 2 intergers using XOR algorithm
- *
- * @warning Do not use this for floating numbers, use @ref SWAP_FLOAT instead
- *
- */
-#define SWAP_XOR(a, b) \
-  a ^= b;              \
-  b ^= a;              \
-  a ^= b;
-
-#define SWAP_INT(a, b) SWAP_XOR(a, b)
-
-#define SWAP_FLOAT(a, b) \
-  float32_t temp = a;    \
-  a              = b;    \
-  b              = temp;
 
 /* Public typedefs ---------------------------------------------------------- */
-typedef int32_t (*op_func_int_t)(int32_t a, int32_t b);
-typedef float32_t (*op_func_float_t)(float32_t a, float32_t b);
-
-typedef void (*op_func_pair_transform_int_t)(int32_t *a, int32_t *b);
 
 /* Function prototypes ------------------------------------------------------ */
+
+void adv_math_init(void);
+//! =============
 
 /*
  *  CALCULUS (NUMERICAL)
@@ -142,6 +105,6 @@ void advm_heap_sort(int arr[], int n);
 int advm_linear_search(const int arr[], int n, int target);
 int advm_binary_search(const int arr[], int l, int r, int target);
 
-#endif /* ADV_MATH_ALGORITHMS_H */
+#endif /* ADV_MATH_H */
 
 /* End of File -------------------------------------------------------------- */

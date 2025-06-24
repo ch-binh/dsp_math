@@ -18,8 +18,21 @@
 #define _ADVM_NUMBER_THEORY_GCD_LCM_H
 
 /* Include ------------------------------------------------------------------ */
-#include "basetype.h"
-#include "adv_math.h"
+#include "advm_config.h"
+
+/* Function tables ---------------------------------------------------------- */
+//! add function here
+// clang-format off
+#define ADVM_GCD_LCM_FUNC_TABLE \
+  { "gcd",             FUNC_INT32, advm_gcd_iter_euclid }, \
+  { "gcd_iter_euclid", FUNC_INT32, advm_gcd_iter_euclid }, \
+  { "gcd_binary",      FUNC_INT32, advm_gcd_binary }, \
+  { "gcd_stein",       FUNC_INT32, advm_gcd_stein }, \
+  { "gcd_stein_naive", FUNC_INT32, advm_gcd_stein_naive }, \
+  { "gcd_recursion",   FUNC_INT32, advm_gcd_recursion }, \
+  { "lcm",             FUNC_INT32, advm_lcm_classic }, \
+  { "lcm_classic",     FUNC_INT32, advm_lcm_classic }
+// clang-format on
 
 /* Public defines ----------------------------------------------------------- */
 #define GCD_SPECIAL_CASE_RETURN 0 ///< inputs have 0
@@ -51,23 +64,14 @@ typedef enum
 /* Public macros ------------------------------------------------------------ */
 
 /* Function protoypes ------------------------------------------------------- */
-/*
- *  NUMBER THEORY
- * =============================================================================
- */
 
-int32_t advm_gcd(int32_t a, int32_t b, advm_gcd_algo_t algorithm);
 int32_t advm_gcd_iter_euclid(int32_t a, int32_t b);
 int32_t advm_gcd_binary(int32_t a, int32_t b);
 int32_t advm_gcd_stein(int32_t a, int32_t b);
 int32_t advm_gcd_stein_naive(int32_t a, int32_t b);
 int32_t advm_gcd_recursion(int32_t a, int32_t b);
-int32_t advm_lcm(int32_t a, int32_t b);
+
 int32_t advm_lcm_classic(int32_t a, int32_t b);
-
-/* Function tables ---------------------------------------------------------- */
-
-// extern op_func_int_t g_advm_gcd_func_table[GCD_NUM_OF_ALGO];
 
 #endif // _ADVM_NUMBER_THEORY_GCD_LCM_H
 

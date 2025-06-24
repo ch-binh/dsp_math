@@ -28,6 +28,7 @@ endif
 CFLAGS := -std=c99 -Wall -Wextra -g
 
 # === PATHS ===
+MAIN         := advm_cli
 TARGET_BASE  := advm
 BIN_DIR      := ../bin
 BUILD_DIR    := ../build/cli
@@ -40,8 +41,8 @@ INC_DIRS := $(addprefix -I, $(SRC_INC_DIRS)) \
 SRC_SRC     := $(shell find $(SRC_DIR) -name "*.c")
 SRC_OBJS    := $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC_SRC))
 
-MAIN_SRC    := cli_main.c
-MAIN_OBJ    := $(BUILD_DIR)/cli_main.o
+MAIN_SRC    := $(MAIN).c
+MAIN_OBJ    := $(BUILD_DIR)/$(MAIN).o
 
 
 TARGET      := $(BIN_DIR)/$(TARGET_BASE)$(TARGET_EXTENSION)
@@ -67,7 +68,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) -c $< -o $@
 
-$(BUILD_DIR)/cli_main.o: cli_main.c cli_main.h
+$(BUILD_DIR)/$(MAIN).o: $(MAIN).c $(MAIN).h
 	@mkdir -p $(dir $@)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) -c $< -o $@
 

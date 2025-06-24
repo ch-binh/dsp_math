@@ -14,9 +14,9 @@
 #define TEST_ADV_MATH_H
 
 /* Includes ----------------------------------------------------------------- */
-#include "adv_math.h"
 #include "unity.h"
 #include "unity_fixture.h"
+#include "adv_math.h"
 
 /* Public defines ----------------------------------------------------------- */
 
@@ -37,7 +37,7 @@
 typedef struct
 {
   const char   *label;
-  op_func_int_t func;
+  op_func_int32_t func;
   int32_t       a;
   int32_t       b;
   int32_t       expected;
@@ -47,7 +47,7 @@ typedef struct
 typedef struct
 {
   const char     *label;
-  op_func_float_t func;
+  op_func_float32_t func;
   float_t         a;
   float_t         b;
   float_t         expected;

@@ -11,12 +11,9 @@
  *
  *******************************************************************************
  */
-/* Prevent includes recursive ----------------------------------------------- */
-#ifndef _ADVM_APPLICATION_H
-#define _ADVM_APPLICATION_H
 
 /* Include ------------------------------------------------------------------ */
-#include "adv_math.h"
+#include "adv_math_application.h"
 
 /* Public defines ----------------------------------------------------------- */
 
@@ -34,12 +31,30 @@
  *
  * @return Simplified numerator and denominator
  */
-void advm_simplify_fraction(int32_t *numerator, int32_t *denominator);
+void advm_simplify_fraction(int32_t *numerator, int32_t *denominator)
+{
+  sign_t numerator_sign   = SIGN(*numerator);
+  sign_t denominator_sign = SIGN(*denominator);
 
-/* Function tables ---------------------------------------------------------- */
+  /* Simplify components */
+  int32_t gcd = advm_gcd_iter_euclid(*numerator, *denominator);
+  if (!gcd)
+    return;
 
-// extern op_func_int_t g_advm_gcd_func_table[GCD_NUM_OF_ALGO];
+  *numerator   = (*numerator / gcd);
+  *denominator = (*denominator / gcd);
 
-#endif // _ADVM_APPLICATION_H
+  /* Simplify signs */
+  // -a/-b -> a/b
+  // a/-b  -> -a/b
+  if (((denominator_sign == BS_NEG) && (numerator_sign == BS_POS)) ||
+      ((denominator_sign == BS_NEG) && (numerator_sign == BS_NEG)))
+  {
+    *numerator   = -(*numerator);
+    *denominator = -(*denominator);
+  }
+
+  return;
+}
 
 /* End of File -------------------------------------------------------------- */

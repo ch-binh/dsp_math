@@ -14,11 +14,11 @@
  *******************************************************************************
  */
 /* Prvent recursion --------------------------------------------------------- */
-#ifndef _ADVM_NUMBER_THEORY_MODULAR_H
-#define _ADVM_NUMBER_THEORY_MODULAR_H
+#ifndef _ADVM_NUMBER_THEORY_PRIME_H
+#define _ADVM_NUMBER_THEORY_PRIME_H
 
 /* Include ------------------------------------------------------------------ */
-#include "basetype.h"
+#include "advm_config.h"
 
 /* Public defines ----------------------------------------------------------- */
 
@@ -28,12 +28,9 @@
 
 /* Function protoypes ------------------------------------------------------- */
 
-int32_t advm_mod_pow(int32_t base, int32_t exp, int32_t mod); // base^exp % mod
-
+bool_t advm_is_prime(int n);
 /* Function tables ---------------------------------------------------------- */
 
-// extern op_func_int_t g_advm_gcd_func_table[GCD_NUM_OF_ALGO];
-
-#endif // _ADVM_NUMBER_THEORY_MODULAR_H
+#endif // _ADVM_NUM_THEO_H
 
 /* End of File -------------------------------------------------------------- */

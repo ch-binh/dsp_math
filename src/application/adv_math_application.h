@@ -11,9 +11,18 @@
  *
  *******************************************************************************
  */
+/* Prevent includes recursive ----------------------------------------------- */
+#ifndef _ADVM_APPLICATION_H
+#define _ADVM_APPLICATION_H
 
 /* Include ------------------------------------------------------------------ */
-#include "adv_math_application.h"
+#include "adv_math.h"
+
+/* Function tables ---------------------------------------------------------- */
+//! add function here
+// clang-format off
+#define ADVM_APPLICATION_FUNC_TABLE \
+  { "simplify-fraction", FUNC_INT32_PT, advm_simplify_fraction } // clang-format on
 
 /* Public defines ----------------------------------------------------------- */
 
@@ -31,30 +40,12 @@
  *
  * @return Simplified numerator and denominator
  */
-void advm_simplify_fraction(int32_t *numerator, int32_t *denominator)
-{
-  sign_t numerator_sign   = SIGN(*numerator);
-  sign_t denominator_sign = SIGN(*denominator);
+void advm_simplify_fraction(int32_t *numerator, int32_t *denominator);
 
-  /* Simplify components */
-  int32_t gcd = advm_gcd(*numerator, *denominator, DEF_GCD_ALGORITHM);
-  if (!gcd)
-    return;
+/* Function tables ---------------------------------------------------------- */
 
-  *numerator   = (*numerator / gcd);
-  *denominator = (*denominator / gcd);
+// extern op_func_int32_t g_advm_gcd_func_table[GCD_NUM_OF_ALGO];
 
-  /* Simplify signs */
-  // -a/-b -> a/b
-  // a/-b  -> -a/b
-  if (((denominator_sign == BS_NEG) && (numerator_sign == BS_POS)) ||
-      ((denominator_sign == BS_NEG) && (numerator_sign == BS_NEG)))
-  {
-    *numerator   = -(*numerator);
-    *denominator = -(*denominator);
-  }
-
-  return;
-}
+#endif // _ADVM_APPLICATION_H
 
 /* End of File -------------------------------------------------------------- */

@@ -1,8 +1,8 @@
 /**
  *******************************************************************************
  * @file    advm_gcd_lcm.h
- * @brief   
- * @details 
+ * @brief
+ * @details
 
  *
  * @date    2025/06/24
@@ -14,11 +14,13 @@
  */
 /* Include ------------------------------------------------------------------ */
 #include "advm_gcd_lcm.h"
-#include "advm_basic_op.h"
+
+// Dependant modules
+#include "module/basic_operation/advm_basic_op.h"
 
 /* Private macros ----------------------------------------------------------- */
 
-// op_func_int_t g_advm_gcd_func_table[GCD_NUM_OF_ALGO] = {
+// op_func_int32_t g_advm_gcd_func_table[GCD_NUM_OF_ALGO] = {
 //   [GCD_ALGO_ITER_EUCLID] = advm_gcd_iter_euclid,
 //   [GCD_ALGO_STEIN]       = advm_gcd_stein,
 // };
@@ -54,38 +56,6 @@
  *  GREATEST COMMON DIVISOR
  * =============================================================================
  */
-
-/**
- * @brief   Compute the greatest common divisor (GCD) of two integers using the selected algorithm.
- *
- * @param[in] a         First integer.
- * @param[in] b         Second integer.
- * @param[in] algorithm Algorithm to use for GCD computation (see advm_gcd_algo_t).
- *
- * @retval    int32_t   The greatest common divisor of a and b.
- * @retval    GCD_SPECIAL_CASE_RETURN (0) if either input a or b is zero/int32_min.
- */
-int32_t advm_gcd(int32_t a, int32_t b, advm_gcd_algo_t algorithm)
-{
-  _GCD_PRE_CHECK(a, b);
-  _GCD_ABS_INPUTS(a, b);
-
-  switch (algorithm)
-  {
-  case GCD_ALGO_RECURSION:
-    return advm_gcd_recursion(a, b);
-  case GCD_ALGO_ITER_EUCLID:
-    return advm_gcd_iter_euclid(a, b);
-  case GCD_ALGO_BINARY:
-    return advm_gcd_binary(a, b);
-  case GCD_ALGO_STEIN:
-    return advm_gcd_stein(a, b);
-  case GCD_ALGO_STEIN_NAIVE:
-    return advm_gcd_stein_naive(a, b);
-  default:
-    return GCD_SPECIAL_CASE_RETURN;
-  }
-}
 
 /**
  * @brief   Compute the greatest common divisor (GCD) of two integers recursively using the Euclidean
@@ -253,21 +223,6 @@ int32_t advm_gcd_stein_naive(int32_t a, int32_t b)
 /**
  * @brief
  *
- * @param a
- * @param b
- *
- * @return int32_t
- */
-int32_t advm_lcm(int32_t a, int32_t b)
-{
-  _LCM_PRE_CHECK(a, b);
-
-  return 1;
-}
-
-/**
- * @brief
- *
  * @details  Original formula: lcm(a, b) = |a * b| / gcd(a, b)
  *
  * @param a
@@ -285,6 +240,5 @@ int32_t advm_lcm_classic(int32_t a, int32_t b)
 
   return (lcm > INT32_MAX) ? LCD_SPECIAL_CASE_RETURN : (int32_t)lcm;
 }
-
 
 /* End of File -------------------------------------------------------------- */

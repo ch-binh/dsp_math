@@ -2,10 +2,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug test_all.exe",
+      "name": "Debug test",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/test_all.exe",
+      "program": "${workspaceFolder}/bin/test_all.exe",
       "args": [],
       "stopAtEntry": true,
       "cwd": "${workspaceFolder}",
