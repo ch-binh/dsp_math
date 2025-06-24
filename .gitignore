@@ -1,4 +1,5 @@
 #
+build/**
 
 # personal
 ./docs/workload.md 

@@ -12,9 +12,9 @@
       "problemMatcher": []
     },
     {
-      "label": "build project",
+      "label": "build test project",
       "type": "shell",
-      "command": "make all",
+      "command": "make test-all",
       "options": {
         "shell": {
           "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
