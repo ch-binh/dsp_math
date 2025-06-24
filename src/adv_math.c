@@ -17,6 +17,7 @@
 /* Includes ----------------------------------------------------------------- */
 #include "adv_math.h"
 
+/* Private defines ---------------------------------------------------------- */
 #define _FUNC_TABLE              \
   {                              \
     ADVM_BASIC_OP_FUNC_TABLE,    \
@@ -24,6 +25,7 @@
     ADVM_APPLICATION_FUNC_TABLE, \
   }
 
+/* Implementation ----------------------------------------------------------- */
 void adv_math_init(void)
 {
   advm_table_entry_t func_table[] = _FUNC_TABLE;

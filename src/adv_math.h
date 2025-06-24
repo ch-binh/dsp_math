@@ -45,7 +45,6 @@ typedef struct
 /* Function prototypes ------------------------------------------------------ */
 
 void adv_math_init(void);
-//! =============
 
 /*
  *  CALCULUS (NUMERICAL)

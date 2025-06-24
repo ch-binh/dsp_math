@@ -14,45 +14,26 @@
 /* Includes ----------------------------------------------------------------- */
 #include "advm_basic_op.h"
 
-/**
- * @brief addition
- *
- * @param a
- * @param b
- * @return float64_t
- */
+/* Implementation ----------------------------------------------------------- */
 float32_t advm_add(float32_t a, float32_t b)
 {
   return a + b;
 }
 
-/**
- * !! TODO: UPDATE THIS COMMENT
- * @brief
- *
- * @param a
- * @param b
- * @return float64_t
- */
 float32_t advm_sub(float32_t a, float32_t b)
 {
   return a - b;
 }
 
-/**
- * !! TODO: UPDATE THIS COMMENT
- * @brief
- *
- * @param[in] a
- * @param[in] b
- * @return float64_t
- */
 float32_t advm_mul(float32_t a, float32_t b)
 {
   return a * b;
 }
+
 float32_t advm_div(float32_t a, float32_t b)
 {
+  // note: float32_t type has already handle special case (EX: 0/0) so we don't
+  // need to implement self guard here.
   return a / b;
 }
 

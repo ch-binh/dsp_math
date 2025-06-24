@@ -23,6 +23,12 @@
 /* Function tables ---------------------------------------------------------- */
 //! add function here
 // clang-format off
+
+/**
+ * @brief Function table for module advm gcd and lcm algorithms
+ *
+ * @note  This table follows @ref advm_table_entry_t format
+ */
 #define ADVM_GCD_LCM_FUNC_TABLE \
   { "gcd",             FUNC_INT32, advm_gcd_iter_euclid }, \
   { "gcd_iter_euclid", FUNC_INT32, advm_gcd_iter_euclid }, \
@@ -65,12 +71,87 @@ typedef enum
 
 /* Function protoypes ------------------------------------------------------- */
 
-int32_t advm_gcd_iter_euclid(int32_t a, int32_t b);
-int32_t advm_gcd_binary(int32_t a, int32_t b);
-int32_t advm_gcd_stein(int32_t a, int32_t b);
-int32_t advm_gcd_stein_naive(int32_t a, int32_t b);
+/**
+ * @brief   Compute the greatest common divisor (GCD) of two integers recursively using the Euclidean
+ * algorithm.
+ *
+ * @param[in] a First integer.
+ * @param[in] b Second integer.
+ *
+ * @retval    int32_t The greatest common divisor of a and b.
+ */
 int32_t advm_gcd_recursion(int32_t a, int32_t b);
 
+/**
+ * @brief   Compute the greatest common divisor (GCD) of two integers using the iterative Euclidean algorithm.
+ *
+ * @details This method uses modulo (division) operations for GCD calculation.
+ *          For a division-free approach, use Stein's algorithm (@ref advm_gcd_stein).
+ *
+ * @param[in] a First integer.
+ * @param[in] b Second integer.
+ *
+ * @retval    int32_t The greatest common divisor of a and b.
+ * @retval    GCD_SPECIAL_CASE_RETURN (0) if either input a or b is zero.
+ */
+int32_t advm_gcd_iter_euclid(int32_t a, int32_t b);
+
+/**
+ * @brief   Compute the greatest common divisor (GCD) of two integers using the binary GCD (Stein's)
+ * algorithm.
+ *
+ * @details This function is an alias for advm_gcd_stein(), providing a more descriptive name for the binary
+ * GCD method.
+ *
+ * @param[in] a First integer.
+ * @param[in] b Second integer.
+ *
+ * @retval    int32_t The greatest common divisor of a and b.
+ */
+int32_t advm_gcd_binary(int32_t a, int32_t b);
+
+/**
+ * @brief   Compute the greatest common divisor (GCD) of two integers using Stein's (binary GCD) algorithm.
+ *
+ * @details This algorithm avoids division and uses only subtraction, bit-shifts, and comparisons.
+ *
+ * @param[in] a First integer.
+ * @param[in] b Second integer.
+ *
+ * @retval    int32_t The greatest common divisor of a and b.
+ * @retval    GCD_SPECIAL_CASE_RETURN (0) if either input a or b is zero.
+ */
+int32_t advm_gcd_stein(int32_t a, int32_t b);
+
+/**
+ * @brief   Compute the greatest common divisor (GCD) of two integers using the naive recursive Stein's
+ * algorithm.
+ *
+ * @details This is a straightforward recursive implementation of the binary GCD algorithm.
+ *
+ * @param[in] a First integer.
+ * @param[in] b Second integer.
+ *
+ * @retval    int32_t The greatest common divisor of a and b.
+ */
+int32_t advm_gcd_stein_naive(int32_t a, int32_t b);
+
+/*
+ *  LEAST COMMON MULTIPLIER
+ * =============================================================================
+ */
+
+/**
+ * @brief Calculate the least common multiple (LCM) of two integers.
+ *
+ * @details Uses the formula: lcm(a, b) = |a * b| / gcd(a, b).
+ *          Handles special cases for zero and INT32_MIN inputs.
+ *
+ * @param[in] a First integer.
+ * @param[in] b Second integer.
+ *
+ * @return int32_t The LCM of a and b, or LCD_SPECIAL_CASE_RETURN for special cases/overflow.
+ */
 int32_t advm_lcm_classic(int32_t a, int32_t b);
 
 #endif // _ADVM_NUMBER_THEORY_GCD_LCM_H

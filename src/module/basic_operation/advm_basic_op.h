@@ -37,7 +37,14 @@
 
 /* Function tables ---------------------------------------------------------- */
 //! add function here
+
 // clang-format off
+
+/**
+ * @brief Function tables for module advm basic operation
+ *
+ * @note  This table follows @ref advm_table_entry_t format
+ */
 #define ADVM_BASIC_OP_FUNC_TABLE \
   { "add", FUNC_FLOAT32, advm_add }, \
   { "sub", FUNC_FLOAT32, advm_sub }, \
@@ -96,8 +103,6 @@ float32_t advm_div(float32_t a, float32_t b);
  * @retval float32_t  Remainder of a divided by b.
  */
 int32_t advm_mod(int32_t a, int32_t b);
-
-/* Function table ----------------------------------------------------------- */
 
 #endif // _ADVM_BASIC_OP_H
 
