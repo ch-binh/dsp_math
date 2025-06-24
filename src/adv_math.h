@@ -23,8 +23,12 @@
 #include <string.h>
 #include "basetype.h"
 
-#include "advm_basic_op.h"
-#include "advm_num_theo.h"
+#include "basic_operation/advm_basic_op.h"
+
+#include "number_theory/advm_gcd_lcm.h"
+#include "number_theory/advm_modular.h"
+#include "number_theory/advm_prime.h"
+
 #include "adv_math_application.h"
 
 /* Public defines ----------------------------------------------------------- */
@@ -76,7 +80,7 @@
 typedef int32_t (*op_func_int_t)(int32_t a, int32_t b);
 typedef float32_t (*op_func_float_t)(float32_t a, float32_t b);
 
-typedef int32_t (*op_func_pair_transform_int_t)(int32_t *a, int32_t *b);
+typedef void (*op_func_pair_transform_int_t)(int32_t *a, int32_t *b);
 
 /* Function prototypes ------------------------------------------------------ */
 

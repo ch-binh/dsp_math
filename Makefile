@@ -9,7 +9,7 @@ ifeq ($(OS),Windows_NT)
     CLEANDATA = del /F /Q
     MKDIR = mkdir
   else # Bash-like shell (e.g. Git Bash)
-    CLEANUP = rm -f
+    CLEANUP = rm -rf
     CLEANDATA = rm -rf
     MKDIR = mkdir -p
   endif
@@ -43,21 +43,26 @@ BUILD_DIR   := build
 DATA_DIR    := data
 
 # === FILES ===
-SRC_SRC       := $(wildcard $(SRC_DIR)/*.c)
+SRC_SRC       := $(shell find $(SRC_DIR) -name "*.c")
 TEST_SRC      := $(wildcard $(TEST_DIR)/Test*.c)
 RUNNER_SRC    := $(wildcard $(RUNNER_DIR)/*.c)
 UNITY_SRC     := $(UNITY_ROOT)/src/unity.c
 UNITY_FIXTURE := $(UNITY_ROOT)/extras/fixture/src/unity_fixture.c
 
 SRC_FILES := $(UNITY_SRC) $(UNITY_FIXTURE) $(SRC_SRC) $(TEST_SRC) $(RUNNER_SRC)
-OBJ_FILES := $(patsubst %.c, $(BUILD_DIR)/%.o, $(notdir $(SRC_FILES)))
+OBJ_FILES := $(patsubst %.c, %.o, $(SRC_FILES))
+OBJ_FILES := $(addprefix $(BUILD_DIR)/, $(OBJ_FILES))
 
 # === TARGET ===
 TARGET_BASE := test_all
 TARGET      := $(BUILD_DIR)/$(TARGET_BASE)$(TARGET_EXTENSION)
 
 # === INCLUDE + DEFINES ===
-INC_DIRS := -I$(SRC_DIR) -I$(UNITY_ROOT)/src -I$(UNITY_ROOT)/extras/fixture/src
+SRC_INC_DIRS := $(shell find $(SRC_DIR) -type d)
+INC_DIRS := $(addprefix -I, $(SRC_INC_DIRS)) \
+            -I$(UNITY_ROOT)/src \
+            -I$(UNITY_ROOT)/extras/fixture/src
+
 SYMBOLS  := -DUNITY_FIXTURE_NO_EXTRAS 
 SYMBOLS  += -D_CONFIG_UNIT_TEST 
 # for assertion ============================={
@@ -110,6 +115,10 @@ $(BUILD_DIR)/%.o: $(UNITY_ROOT)/extras/fixture/src/%.c | $(BUILD_DIR)
 # === BUILD DIR ===
 $(BUILD_DIR):
 	$(MKDIR) $(BUILD_DIR)
+
+$(BUILD_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(C_COMPILER) $(CFLAGS) $(SYMBOLS) $(INC_DIRS) -c $< -o $@
 
 # === CLEAN ===
 

@@ -40,7 +40,7 @@ void advm_simplify_fraction(int32_t *numerator, int32_t *denominator)
   int32_t gcd = advm_gcd(*numerator, *denominator, DEF_GCD_ALGORITHM);
   if (!gcd)
     return;
-    
+
   *numerator   = (*numerator / gcd);
   *denominator = (*denominator / gcd);
 
@@ -48,7 +48,7 @@ void advm_simplify_fraction(int32_t *numerator, int32_t *denominator)
   // -a/-b -> a/b
   // a/-b  -> -a/b
   if (((denominator_sign == BS_NEG) && (numerator_sign == BS_POS)) ||
-      (denominator_sign == BS_NEG) && (numerator_sign == BS_NEG))
+      ((denominator_sign == BS_NEG) && (numerator_sign == BS_NEG)))
   {
     *numerator   = -(*numerator);
     *denominator = -(*denominator);

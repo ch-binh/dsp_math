@@ -14,16 +14,16 @@
  *******************************************************************************
  */
 /* Prvent recursion --------------------------------------------------------- */
-#ifndef _ADVM_NUM_THEO_H
-#define _ADVM_NUM_THEO_H
+#ifndef _ADVM_NUMBER_THEORY_GCD_LCM_H
+#define _ADVM_NUMBER_THEORY_GCD_LCM_H
 
 /* Include ------------------------------------------------------------------ */
 #include "basetype.h"
 #include "adv_math.h"
 
 /* Public defines ----------------------------------------------------------- */
-#define GCD_NO_AVAILABLE 0 ///< inputs have 0
-
+#define GCD_SPECIAL_CASE_RETURN 0 ///< inputs have 0
+#define LCD_SPECIAL_CASE_RETURN 0 ///< special return value for LCD's invalid inputs
 /// default GCD Algorithm
 #if !defined(DEF_GCD_ALGORITHM)
 #define DEF_GCD_ALGORITHM (GCD_ALGO_ITER_EUCLID)
@@ -40,6 +40,14 @@ typedef enum
   GCD_NUM_OF_ALGO,
 } advm_gcd_algo_t;
 
+typedef enum
+{
+  LCM_ALGO_CLASSIC = 0, ///< Standard LCM: lcm(a, b) = |a * b| / gcd(a, b)
+  // LCM_ALGO_BRUTE_FORCE, ///< Naive brute force (educational) - Not implemented
+  // LCM_ALGO_FACTORIZE, ///< Prime factorization (if implemented) - Not implemented
+  LCM_NUM_OF_ALGO
+} advm_lcm_algo_t;
+
 /* Public macros ------------------------------------------------------------ */
 
 /* Function protoypes ------------------------------------------------------- */
@@ -48,50 +56,19 @@ typedef enum
  * =============================================================================
  */
 
-/**
- * @brief
- *
- * @param a
- * @param b
- * @return int32_t
- */
 int32_t advm_gcd(int32_t a, int32_t b, advm_gcd_algo_t algorithm);
 int32_t advm_gcd_iter_euclid(int32_t a, int32_t b);
 int32_t advm_gcd_binary(int32_t a, int32_t b);
 int32_t advm_gcd_stein(int32_t a, int32_t b);
 int32_t advm_gcd_stein_naive(int32_t a, int32_t b);
 int32_t advm_gcd_recursion(int32_t a, int32_t b);
-/**
- * @brief
- *
- * @param a
- * @param b
- * @return int32_t
- */
 int32_t advm_lcm(int32_t a, int32_t b);
-
-/**
- * @brief
- *
- * @param n
- * @return bool_t
- */
-bool_t advm_is_prime(int n);
-
-/**
- * @brief
- *
- * @param base
- * @param exp
- * @param mod
- * @return int32_t
- */
-int32_t advm_mod_pow(int32_t base, int32_t exp, int32_t mod); // base^exp % mod
+int32_t advm_lcm_classic(int32_t a, int32_t b);
 
 /* Function tables ---------------------------------------------------------- */
 
 // extern op_func_int_t g_advm_gcd_func_table[GCD_NUM_OF_ALGO];
 
-#endif // _ADVM_NUM_THEO_H
+#endif // _ADVM_NUMBER_THEORY_GCD_LCM_H
 
 /* End of File -------------------------------------------------------------- */

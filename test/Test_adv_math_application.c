@@ -23,7 +23,7 @@
 
 // clang-format off
 test_pair_transform_case_int_t cases_simplify_fraction[] = {
-  // TESTCASE               |FUNC                    |A     |B     |EXPECTED A |EXPECTED B |DELTA |COMMENT
+  // TESTCASE                                      |FUNC                    |A     |B     |EXPECTED A |EXPECTED B |DELTA |COMMENT
   //--------------------------------------------------------------------------------------------------------------
   TEST_CASE_SIMPLIFY_FRAC("basic",                 advm_simplify_fraction,  63,   21,     3,        1,      0), ///< 63/21 = 3/1
   TEST_CASE_SIMPLIFY_FRAC("already_simplified",    advm_simplify_fraction,   7,   13,     7,       13,      0), ///< 7/13 đã tối giản

@@ -1,12 +1,11 @@
 /**
  *******************************************************************************
- * @file    adv_math_algorithms.h
- * @brief   Advanced mathematical and algorithmic function declarations.
- * @details This is a high-level interface to various algorithms implemented in
- *C. Designed to support numerical computation, signal processing, and
- *          embedded-friendly math operations.
+ * @file    advm_gcd_lcm.h
+ * @brief   
+ * @details 
+
  *
- * @date    2025/06/15
+ * @date    2025/06/24
  * @author  Binh Pham
  *******************************************************************************
  * @attention
@@ -14,7 +13,7 @@
  *******************************************************************************
  */
 /* Include ------------------------------------------------------------------ */
-#include "advm_num_theo.h"
+#include "advm_gcd_lcm.h"
 #include "advm_basic_op.h"
 
 /* Private macros ----------------------------------------------------------- */
@@ -26,9 +25,9 @@
 
 #define _GCD_PRE_CHECK(a, b)                \
   if ((a == INT32_MIN) || (b == INT32_MIN)) \
-    return GCD_NO_AVAILABLE;                \
+    return GCD_SPECIAL_CASE_RETURN;         \
   else if (a == 0 && b == 0)                \
-    return GCD_NO_AVAILABLE;                \
+    return GCD_SPECIAL_CASE_RETURN;         \
   else if (a == 0)                          \
     return b;                               \
   else if (b == 0)                          \
@@ -37,13 +36,24 @@
 #define _GCD_ABS_INPUTS(a, b) \
   a = ABS(a);                 \
   b = ABS(b);
+
+/**
+ * @brief Check legitimacy of inputs
+ *
+ * @retval 0 if either a or b equals 0
+ */
+#define _LCM_PRE_CHECK(a, b)                \
+  if ((a == INT32_MIN) || (b == INT32_MIN)) \
+    return LCD_SPECIAL_CASE_RETURN;         \
+  else if ((a == 0) || (b == 0))            \
+    return LCD_SPECIAL_CASE_RETURN;
+
 /* Function protoypes ------------------------------------------------------- */
+
 /*
- *  NUMBER THEORY
+ *  GREATEST COMMON DIVISOR
  * =============================================================================
  */
-
-// TODO: Update comments
 
 /**
  * @brief   Compute the greatest common divisor (GCD) of two integers using the selected algorithm.
@@ -53,7 +63,7 @@
  * @param[in] algorithm Algorithm to use for GCD computation (see advm_gcd_algo_t).
  *
  * @retval    int32_t   The greatest common divisor of a and b.
- * @retval    GCD_NO_AVAILABLE (0) if either input a or b is zero/int32_min.
+ * @retval    GCD_SPECIAL_CASE_RETURN (0) if either input a or b is zero/int32_min.
  */
 int32_t advm_gcd(int32_t a, int32_t b, advm_gcd_algo_t algorithm)
 {
@@ -73,7 +83,7 @@ int32_t advm_gcd(int32_t a, int32_t b, advm_gcd_algo_t algorithm)
   case GCD_ALGO_STEIN_NAIVE:
     return advm_gcd_stein_naive(a, b);
   default:
-    return GCD_NO_AVAILABLE;
+    return GCD_SPECIAL_CASE_RETURN;
   }
 }
 
@@ -104,7 +114,7 @@ int32_t advm_gcd_recursion(int32_t a, int32_t b)
  * @param[in] b Second integer.
  *
  * @retval    int32_t The greatest common divisor of a and b.
- * @retval    GCD_NO_AVAILABLE (0) if either input a or b is zero.
+ * @retval    GCD_SPECIAL_CASE_RETURN (0) if either input a or b is zero.
  */
 int32_t advm_gcd_iter_euclid(int32_t a, int32_t b)
 {
@@ -146,7 +156,7 @@ int32_t advm_gcd_binary(int32_t a, int32_t b)
  * @param[in] b Second integer.
  *
  * @retval    int32_t The greatest common divisor of a and b.
- * @retval    GCD_NO_AVAILABLE (0) if either input a or b is zero.
+ * @retval    GCD_SPECIAL_CASE_RETURN (0) if either input a or b is zero.
  */
 int32_t advm_gcd_stein(int32_t a, int32_t b)
 {
@@ -235,39 +245,46 @@ int32_t advm_gcd_stein_naive(int32_t a, int32_t b)
   }
 }
 
-//!=============================================================================
+/*
+ *  LEAST COMMON MULTIPLIER
+ * =============================================================================
+ */
 
 /**
  * @brief
  *
  * @param a
  * @param b
+ *
  * @return int32_t
  */
 int32_t advm_lcm(int32_t a, int32_t b)
 {
+  _LCM_PRE_CHECK(a, b);
+
   return 1;
 }
 
 /**
  * @brief
  *
- * @param n
- * @return bool_t
- */
-bool_t advm_is_prime(int n)
-{
-  return 1;
-}
-
-/**
- * @brief
+ * @details  Original formula: lcm(a, b) = |a * b| / gcd(a, b)
  *
- * @param base
- * @param exp
- * @param mod
+ * @param a
+ * @param b
+ *
  * @return int32_t
  */
-int32_t advm_mod_pow(int32_t base, int32_t exp, int32_t mod); // base^exp % mod
+int32_t advm_lcm_classic(int32_t a, int32_t b)
+{
+  _LCM_PRE_CHECK(a, b);
+
+  // lcm(a, b) = |a * b| / gcd(a, b) = |a| / gcd(a, b) * |b|
+  int64_t gcd = (int64_t)advm_gcd_iter_euclid(a, b);
+  int64_t lcm = ABS((int64_t)(a)) / gcd * ABS((int64_t)(b));
+
+  return (lcm > INT32_MAX) ? LCD_SPECIAL_CASE_RETURN : (int32_t)lcm;
+}
+
 
 /* End of File -------------------------------------------------------------- */
