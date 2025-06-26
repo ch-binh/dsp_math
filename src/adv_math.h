@@ -46,14 +46,7 @@ typedef struct
 
 void adv_math_init(void);
 
-/*
- *  CALCULUS (NUMERICAL)
- * =============================================================================
- */
-double advm_derivative(double (*f)(double), double x,
-                       double h); // f'(x) ≈ [f(x + h) - f(x)] / h
-double advm_integrate(double (*f)(double), double a, double b,
-                      int n); // numerical integration using Trapezoidal Rule
+
 
 /*
  *  ALGEBRA / LINEAR ALGEBRA
@@ -86,16 +79,7 @@ void advm_swap(int *a, int *b);
 void advm_reverse(int arr[], int n);
 void advm_shuffle(int arr[], int n); // Fisher–Yates shuffle
 
-/*
- *  SORTING ALGORITHMS
- * =============================================================================
- */
-void advm_bubble_sort(int arr[], int n);
-void advm_selection_sort(int arr[], int n);
-void advm_insertion_sort(int arr[], int n);
-void advm_merge_sort(int arr[], int l, int r);
-void advm_quick_sort(int arr[], int l, int r);
-void advm_heap_sort(int arr[], int n);
+
 
 /*
  *  SEARCHING ALGORITHMS

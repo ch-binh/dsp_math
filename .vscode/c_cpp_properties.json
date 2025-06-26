@@ -12,7 +12,8 @@
                 "${workspaceFolder}/src/module/number_theory",
                 "${workspaceFolder}/test",
                 "${workspaceFolder}/thirdparties/Unity/extras/fixture/src",
-                "${workspaceFolder}/thirdparties/Unity/src"
+                "${workspaceFolder}/thirdparties/Unity/src",
+                "${workspaceFolder}/thirdparties/Unity/extras/memory/src"
             ],
             "forcedInclude": [
                 // "${workspaceFolder}/src/adv_math.h"
