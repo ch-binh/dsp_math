@@ -72,10 +72,9 @@ INC_DIRS := $(addprefix -I, $(SRC_INC_DIRS)) \
 SYMBOLS  := -DUNITY_FIXTURE_NO_EXTRAS 
 SYMBOLS  += -D_CONFIG_UNIT_TEST 
 SYMBOLS  += -D__USE_FULL_ASSERTION
+SYMBOLS  += -D__USE_LOG
 
-ifeq ($(LOG),1)
-SYMBOLS += -D_CONFIG_UNIT_TEST_LOG
-endif
+
 
 #! ================================================================
 #! =================== DEFAULT TARGET ============================

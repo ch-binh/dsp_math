@@ -4,12 +4,7 @@
             "name": "Win32",
             "includePath": [
                 //"${workspaceFolder}/**"
-                "${workspaceFolder}/src",
-                "${workspaceFolder}/src/application",
-                "${workspaceFolder}/src/common",
-                "${workspaceFolder}/src/utils",
-                "${workspaceFolder}/src/module/basic_operation",
-                "${workspaceFolder}/src/module/number_theory",
+                "${workspaceFolder}/src/**",
                 "${workspaceFolder}/test",
                 "${workspaceFolder}/thirdparties/Unity/extras/fixture/src",
                 "${workspaceFolder}/thirdparties/Unity/src",

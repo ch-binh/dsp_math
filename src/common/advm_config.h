@@ -25,12 +25,23 @@
 
 // Logging
 #if !defined(__USE_LOG)
-#define LOG(msg, ...) ((void)0)
+#define LOG(msg, ...)        ((void)0)
+#define LOG_DETAIL(msg, ...) ((void)0)
 #else
 #include <stdio.h>
 #include <string.h>
-#define LOG(msg, ...) printf("[%s] " msg "\n", TAG, ##__VA_ARGS__)
+#define LOG(msg, ...)        printf(msg "\n", ##__VA_ARGS__)
+#define LOG_DETAIL(msg, ...) printf("[%s] " msg "\n", TAG, ##__VA_ARGS__)
 #endif // __USE_LOG
+
+#define PRINT_INT_ARR(arr, n)                \
+  {                                          \
+    for (uint_fast32_t _i = 0; _i < n; _i++) \
+    {                                        \
+      LOG("%d ", arr[_i]);                   \
+    }                                        \
+    LOG("\n");                               \
+  }
 
 // Assertion
 #if !defined(__USE_FULL_ASSERTION)
@@ -71,13 +82,17 @@
 typedef int32_t (*op_func_int32_t)(int32_t a, int32_t b);
 typedef float32_t (*op_func_float32_t)(float32_t a, float32_t b);
 typedef void (*op_func_pair_transform_int_t)(int32_t *a, int32_t *b);
+typedef void (*op_func_array_int32_t)(int32_t *arr, uint32_t n);
+typedef void (*op_func_array_float32_t)(float32_t *arr, uint32_t n);
 
 typedef enum
 {
-  FUNC_FLOAT32,    ///< @ref op_func_int32_t
-  FUNC_INT32,      ///< @ref op_func_float32_t
-  FUNC_INT32_PT    ///< @ref op_func_pair_transform_int_t
-} advm_func_sig_t; ///< Function signature
+  FUNC_FLOAT32,     ///< @ref op_func_int32_t
+  FUNC_INT32,       ///< @ref op_func_float32_t
+  FUNC_INT32_PT,    ///< @ref op_func_pair_transform_int_t
+  FUNC_INT32_ARR,   ///< @ref op_func_array_int32_t
+  FUNC_FLOAT32_ARR, ///< @ref op_func_array_float32_t
+} advm_func_sig_t;  ///< Function signature
 
 typedef struct
 {

@@ -27,7 +27,21 @@
 
 /* Function protoypes ------------------------------------------------------- */
 
-void advm_bubble_sort(float32_t *arr, uint32_t n) {}; 
+void advm_sort_bubble_int32(int32_t *arr, uint32_t n)
+{
+  ADVM_CHECK(n > 0, NULL);
+
+  for (uint_fast32_t i = 0; i < (n - 1); ++i)
+  {
+    for (uint_fast32_t j = 0; j < (n - i - 1); j++)
+    {
+      if (arr[j] > arr[j + 1])
+      {
+        SWAP_INT(arr[j], arr[j + 1]);
+      }
+    }
+  }
+}
 
 void advm_selection_sort(int arr[], int n);
 void advm_insertion_sort(int arr[], int n);

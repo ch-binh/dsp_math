@@ -25,6 +25,7 @@
 #include "advm_gcd_lcm.h"
 #include "advm_modular.h"
 #include "advm_prime.h"
+#include "advm_sort.h"
 
 #include "adv_math_application.h"
 #include "advm_func_register.h"
@@ -45,8 +46,6 @@ typedef struct
 /* Function prototypes ------------------------------------------------------ */
 
 void adv_math_init(void);
-
-
 
 /*
  *  ALGEBRA / LINEAR ALGEBRA
@@ -78,8 +77,6 @@ void advm_bfs(int graph[][100], int n, int start);
 void advm_swap(int *a, int *b);
 void advm_reverse(int arr[], int n);
 void advm_shuffle(int arr[], int n); // Fisher–Yates shuffle
-
-
 
 /*
  *  SEARCHING ALGORITHMS

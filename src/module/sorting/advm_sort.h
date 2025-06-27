@@ -30,7 +30,9 @@
 
 /* Function protoypes ------------------------------------------------------- */
 
-void advm_bubble_sort(int arr[], int n);
+void advm_sort_bubble_float32(float32_t *arr, uint32_t n);
+void advm_sort_bubble_int32(int32_t *arr, uint32_t n);
+
 void advm_selection_sort(int arr[], int n);
 void advm_insertion_sort(int arr[], int n);
 void advm_merge_sort(int arr[], int l, int r);
