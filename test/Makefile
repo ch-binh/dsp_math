@@ -35,7 +35,7 @@ CFLAGS := -std=c99 -Wall -Wextra -Wpointer-arith -Wcast-align -Wwrite-strings \
 DLFLAGS := -mconsole
 
 # === PATHS ===
-BIN_DIR     := ../bin
+BIN_DIR      := ../bin
 BUILD_DIR    := ../build
 DATA_DIR     := ../data
 UNITY_ROOT   := ../thirdparties/Unity

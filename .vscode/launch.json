@@ -21,6 +21,13 @@
         }
       ],
       "preLaunchTask": "build test project"
+    },
+    {
+      "name": "Debug Python",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/python/main.py",
+      "console": "integratedTerminal"
     }
   ]
 }
