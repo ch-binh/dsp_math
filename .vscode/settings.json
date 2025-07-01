@@ -27,7 +27,8 @@
     "advm_func_register.h": "c",
     "typeinfo": "c",
     "advm_sort.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "stdlib.h": "c"
   },
   "cSpell.words": [
     "advm"
