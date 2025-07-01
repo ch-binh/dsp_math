@@ -1,8 +1,6 @@
+.PHONY: all test cli run clean clean-all dll
 
-
-.PHONY: all test cli run clean clean-all
-
-all: test-all cli
+all: test-all cli dll
 
 test-all:
 	$(MAKE) -C test all
@@ -16,9 +14,14 @@ rm_data:
 cli:
 	$(MAKE) -C cli
 
+dll:
+	$(MAKE) -C src
+
+
 clean:
 	$(MAKE) -C test clean
 	$(MAKE) -C cli clean
+	$(MAKE) -C src clean
 	rm -rf build/*
 
 clean-all: clean

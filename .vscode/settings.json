@@ -30,7 +30,9 @@
     "stdio.h": "c"
   },
   "cSpell.words": [
-    "advm"
+    "advm",
+    "CLEANDATA",
+    "libadvm"
   ],
   "C_Cpp.default.compilerPath": "C:/msys64/mingw64/bin/gcc.exe",
   "cmake.ignoreCMakeListsMissing": true,

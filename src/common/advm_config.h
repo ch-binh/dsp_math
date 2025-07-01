@@ -23,6 +23,13 @@
 /* Public defines ----------------------------------------------------------- */
 /* Public macros ------------------------------------------------------------ */
 
+// to build dll
+#ifdef _WIN32
+#define ADVM_API __declspec(dllexport)
+#else
+#define ADVM_API
+#endif
+
 // Logging
 #if !defined(__USE_LOG)
 #define LOG(msg, ...)        ((void)0)
