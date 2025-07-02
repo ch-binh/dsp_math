@@ -29,7 +29,7 @@
 
 void advm_sort_bubble_int32(int32_t *arr, uint32_t n)
 {
-  ADVM_CHECK(n > 0, NULL);
+  ADVM_CHECK_NO_RETURN(n > 0);
 
   for (uint_fast32_t i = 0; i < (n - 1); ++i)
   {

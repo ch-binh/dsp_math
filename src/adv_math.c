@@ -43,9 +43,9 @@ void advm_init(void)
 
 void advm_randomize_arr_int32(int32_t *arr, uint32_t n, uint32_t min, uint32_t max)
 {
-  ADVM_CHECK(arr != NULL, NULL);
-  ADVM_CHECK(n > 0, NULL);
-  ADVM_CHECK(min < max, NULL);
+  ADVM_CHECK_NO_RETURN(arr != NULL);
+  ADVM_CHECK_NO_RETURN(n > 0);
+  ADVM_CHECK_NO_RETURN(min < max);
 
   for (uint_fast32_t i = 0; i < n; ++i)
   {
@@ -55,9 +55,9 @@ void advm_randomize_arr_int32(int32_t *arr, uint32_t n, uint32_t min, uint32_t m
 
 void advm_randomize_arr_float32(float32_t *arr, uint32_t n, float32_t min, float32_t max)
 {
-  ADVM_CHECK(arr != NULL, NULL);
-  ADVM_CHECK(n > 0, NULL);
-  ADVM_CHECK(min < max, NULL);
+  ADVM_CHECK_NO_RETURN(arr != NULL);
+  ADVM_CHECK_NO_RETURN(n > 0);
+  ADVM_CHECK_NO_RETURN(min < max);
 
   for (uint_fast32_t i = 0; i < n; ++i)
   {

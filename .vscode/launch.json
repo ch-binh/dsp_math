@@ -27,7 +27,7 @@
       "type": "debugpy",
       "request": "launch",
       "program": "${workspaceFolder}/python/main.py",
-      "console": "integratedTerminal"
+      "console": "internalConsole"
     }
   ]
 }
