@@ -31,6 +31,7 @@
 #include "advm_func_register.h"
 
 /* Public defines ----------------------------------------------------------- */
+
 /* Public macros ------------------------------------------------------------ */
 
 typedef struct
@@ -45,7 +46,18 @@ typedef struct
 
 /* Function prototypes ------------------------------------------------------ */
 
-void adv_math_init(void);
+void advm_init(void);
+
+/**
+ * @brief     Randomizes an array of int32_t values within a specified range.
+ *
+ * @param[in] arr Pointer to the array of int32 values to be randomized.
+ * @param[in] n   Number of elements in the array.
+ * @param[in] min Minimum value for the randomization range.
+ * @param[in] max Maximum value for the randomization range.
+ *
+ */
+void advm_randomize_arr_int32(int32_t *arr, uint32_t n, uint32_t min, uint32_t max);
 
 /*
  *  ALGEBRA / LINEAR ALGEBRA

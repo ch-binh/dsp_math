@@ -82,7 +82,7 @@ typedef struct
 {
   const char           *label;    ///< Test label (e.g. Bubble Sort Extreme Case)
   op_func_array_int32_t func;     ///< Operation function pointer (array)
-  int32_t              *arr;        ///< Input array
+  int32_t              *arr;      ///< Input array
   uint32_t              n;        ///< Number of elements in the array
   int32_t              *expected; ///< Expected output array
   int32_t               delta;    ///< Allowed delta between each i/o element

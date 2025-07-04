@@ -23,6 +23,13 @@
 /* Public defines ----------------------------------------------------------- */
 /* Public macros ------------------------------------------------------------ */
 
+// to build dll
+#ifdef _WIN32
+#define ADVM_API __declspec(dllexport)
+#else
+#define ADVM_API
+#endif
+
 // Logging
 #if !defined(__USE_LOG)
 #define LOG(msg, ...)        ((void)0)
@@ -45,13 +52,22 @@
 
 // Assertion
 #if !defined(__USE_FULL_ASSERTION)
-#define ADVM_CHECK(cond, ret) ((void)0)
+#define ADVM_CHECK(cond, ret)      ((void)0)
+#define ADVM_CHECK_NO_RETURN(cond) ((void)0)
 #else
+
 #define ADVM_CHECK(cond, ret)           \
   if (!(cond))                          \
   {                                     \
     LOG("Condition failed: %s", #cond); \
     return ret;                         \
+  }
+
+#define ADVM_CHECK_NO_RETURN(cond)      \
+  if (!(cond))                          \
+  {                                     \
+    LOG("Condition failed: %s", #cond); \
+    return;                             \
   }
 #endif // __USE_FULL_ASSERTION
 

@@ -4,38 +4,42 @@
 
 # === OS DETECTION ===
 ifeq ($(OS),Windows_NT)
-  ifeq ($(shell uname -s),) # Not bash
-    CLEANUP = del /F /Q
-    CLEANDATA = del /F /Q
-    MKDIR = mkdir
-  else
-    CLEANUP = rm -rf
-    CLEANDATA = rm -rf
-    MKDIR = mkdir -p
-  endif
-  TARGET_EXTENSION = .exe
+	UNAME_S := $(shell uname -s 2>/dev/null)
+	ifneq ($(findstring MINGW,$(UNAME_S))$(findstring MSYS,$(UNAME_S))$(findstring CYGWIN,$(UNAME_S)),)
+		# POSIX shell on Windows (Git Bash, MSYS2, etc.)
+		CLEANUP = rm -rf
+		CLEANDATA = rm -rf
+		MKDIR = mkdir -p
+	else
+		# Native CMD or PowerShell
+		CLEANUP = del /F /Q
+		CLEANDATA = del /F /Q
+		MKDIR = mkdir
+	endif
+	TARGET_EXTENSION = .exe
 else
-  CLEANUP = rm -f
-  CLEANDATA = rm -rf
-  MKDIR = mkdir -p
-  TARGET_EXTENSION = .out
+	CLEANUP = rm -f
+	CLEANDATA = rm -rf
+	MKDIR = mkdir -p
+	TARGET_EXTENSION = .out
 endif
 
 # === COMPILER ===
 C_COMPILER := gcc
 ifeq ($(shell uname -s), Darwin)
-  C_COMPILER := clang
+	C_COMPILER := clang
 endif
 
 # === FLAGS ===
 CFLAGS := -std=c99 -Wall -Wextra -Wpointer-arith -Wcast-align -Wwrite-strings \
-  -Wswitch-default -Wunreachable-code -Winit-self -Wmissing-field-initializers \
-  -Wno-unknown-pragmas -Wstrict-prototypes -Wundef -Wold-style-definition -g
+	-Wswitch-default -Wunreachable-code -Winit-self -Wmissing-field-initializers \
+	-Wno-unknown-pragmas -Wstrict-prototypes -Wundef -Wold-style-definition -g \
+	-O0
 
 DLFLAGS := -mconsole
 
 # === PATHS ===
-BIN_DIR     := ../bin
+BIN_DIR      := ../bin
 BUILD_DIR    := ../build
 DATA_DIR     := ../data
 UNITY_ROOT   := ../thirdparties/Unity
@@ -66,8 +70,8 @@ TARGET      := $(BIN_DIR)/$(TARGET_BASE)$(TARGET_EXTENSION)
 # === INCLUDE + DEFINES ===
 
 INC_DIRS := $(addprefix -I, $(SRC_INC_DIRS)) \
-            -I$(UNITY_ROOT)/src \
-            -I$(UNITY_ROOT)/extras/fixture/src
+						-I$(UNITY_ROOT)/src \
+						-I$(UNITY_ROOT)/extras/fixture/src
 
 SYMBOLS  := -DUNITY_FIXTURE_NO_EXTRAS 
 SYMBOLS  += -D_CONFIG_UNIT_TEST 
@@ -85,9 +89,9 @@ all: clean rm_data default
 run: rm_data default 
 	@echo "==== Running Tests ===="
 	@./$(TARGET) -v
-	
+
 clean:
-	$(CLEANUP) $(BUILD_DIR)/* $(TARGET) 
+	$(CLEANUP) $(BUILD_DIR)/* $(TARGET) *.gcno *.gcda *.gcov
 
 rm_data:
 	$(CLEANDATA) $(DATA_DIR)/* 

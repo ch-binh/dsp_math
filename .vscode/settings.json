@@ -27,10 +27,13 @@
     "advm_func_register.h": "c",
     "typeinfo": "c",
     "advm_sort.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "stdlib.h": "c"
   },
   "cSpell.words": [
-    "advm"
+    "advm",
+    "CLEANDATA",
+    "libadvm"
   ],
   "C_Cpp.default.compilerPath": "C:/msys64/mingw64/bin/gcc.exe",
   "cmake.ignoreCMakeListsMissing": true,

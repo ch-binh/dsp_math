@@ -25,7 +25,7 @@
 int main(int argc, char *argv[])
 {
 
-  adv_math_init();
+  advm_init();
 
   if (argc < 4)
   {

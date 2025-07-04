@@ -39,7 +39,6 @@
 //! add function here
 
 // clang-format off
-
 /**
  * @brief Function tables for module advm basic operation
  *
@@ -63,7 +62,7 @@
  *
  * @retval float32_t  Sum of a and b.
  */
-float32_t advm_add(float32_t a, float32_t b);
+ADVM_API float32_t advm_add(float32_t a, float32_t b);
 
 /**
  * @brief   Subtract one **floating-point** number from another.
@@ -73,7 +72,7 @@ float32_t advm_add(float32_t a, float32_t b);
  *
  * @retval float32_t  Difference of a and b.
  */
-float32_t advm_sub(float32_t a, float32_t b);
+ADVM_API float32_t advm_sub(float32_t a, float32_t b);
 
 /**
  * @brief   Multiply two **floating-point** numbers.
@@ -82,7 +81,7 @@ float32_t advm_sub(float32_t a, float32_t b);
  *
  * @retval float32_t  Product of a and b.
  */
-float32_t advm_mul(float32_t a, float32_t b);
+ADVM_API float32_t advm_mul(float32_t a, float32_t b);
 
 /**
  * @brief   Divide one floating-point number by another.
@@ -92,7 +91,7 @@ float32_t advm_mul(float32_t a, float32_t b);
  *
  * @retval float32_t  Quotient of a divided by b.
  */
-float32_t advm_div(float32_t a, float32_t b);
+ADVM_API float32_t advm_div(float32_t a, float32_t b);
 
 /**
  * @brief   Compute the modulus of two integers.
@@ -102,7 +101,7 @@ float32_t advm_div(float32_t a, float32_t b);
  *
  * @retval float32_t  Remainder of a divided by b.
  */
-int32_t advm_mod(int32_t a, int32_t b);
+ADVM_API int32_t advm_mod(int32_t a, int32_t b);
 
 #endif // _ADVM_BASIC_OP_H
 

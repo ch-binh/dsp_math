@@ -1,52 +1,45 @@
 /**
  *******************************************************************************
- * @file    advm_calculus.h
+ * @file    advm_search.h
  * @brief   Advanced mathematical and algorithmic function declarations.
- * @details This is a high-level interface to various algorithms implemented in
- *C. Designed to support numerical computation, signal processing, and
- *          embedded-friendly math operations.
+ * @details
  *
- * @date    2025/06/15
+ * @date    2025/07/01
  * @author  Binh Pham
  *******************************************************************************
  * @attention
  * ! Update information
  *******************************************************************************
  */
+/* Prvent recursion --------------------------------------------------------- */
+#ifndef _ADVM_SEARCH_H
+#define _ADVM_SEARCH_H
 
 /* Include ------------------------------------------------------------------ */
-#include "advm_sort.h"
+#include "advm_config.h"
 
 /* Function tables ---------------------------------------------------------- */
-
+// clang-format off
+/**
+ * @brief Function tables for module advm search algorithm
+ *
+ * @note  This table follows @ref advm_table_entry_t format
+ */
+#define ADVM_BASIC_OP_FUNC_TABLE \
+  { "lin_search", FUNC_FLOAT32, advm_linear_search }, \
+  { "bin_search", FUNC_FLOAT32, advm_binary_search },
+// clang-format on
 /* Public defines ----------------------------------------------------------- */
 
 /* Public variables --------------------------------------------------------- */
 
 /* Public macros ------------------------------------------------------------ */
 
-/* Function protoypes ------------------------------------------------------- */
+/* Function prototypes ------------------------------------------------------ */
 
-void advm_sort_bubble_int32(int32_t *arr, uint32_t n)
-{
-  ADVM_CHECK_NO_RETURN(n > 0);
+void advm_linear_search(const float32_t arr[], uint32_t n, float32_t target);
+void advm_binary_search(const float32_t arr[], float32_t l, uint32_t r, float32_t target);
 
-  for (uint_fast32_t i = 0; i < (n - 1); ++i)
-  {
-    for (uint_fast32_t j = 0; j < (n - i - 1); j++)
-    {
-      if (arr[j] > arr[j + 1])
-      {
-        SWAP_INT(arr[j], arr[j + 1]);
-      }
-    }
-  }
-}
-
-void advm_selection_sort(int arr[], int n);
-void advm_insertion_sort(int arr[], int n);
-void advm_merge_sort(int arr[], int l, int r);
-void advm_quick_sort(int arr[], int l, int r);
-void advm_heap_sort(int arr[], int n);
+#endif // _ADVM_SEARCH_H
 
 /* End of File -------------------------------------------------------------- */
